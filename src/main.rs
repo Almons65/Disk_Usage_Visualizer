@@ -29,7 +29,7 @@ struct DiskInfo {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 struct FileInfo {
     path: String,
-    size_mb: f64, // Store file size in MB
+    size_mb: f64, 
 }
 
 struct DiskVisualizer {
@@ -210,7 +210,7 @@ impl Application for DiskVisualizer {
         .padding(10)
         .max_width(800);
 
-    // Show scanning status or error message if scanning
+    
     if self.scanning {
         content = content.push(Text::new("Scanning... Please wait..."));
     } else {
@@ -232,7 +232,7 @@ impl Application for DiskVisualizer {
                 .padding(5),
         );
 
-        // Loop over disks to display their information
+        
         for disk in &self.disks {
             let usage_percentage = (disk.used_space / disk.total_space) * 100.0;
             content = content
@@ -241,7 +241,7 @@ impl Application for DiskVisualizer {
                 .push(Text::new(format!("Used Space: {:.2} GB", disk.used_space)))
                 .push(ProgressBar::new(0.0..=100.0, usage_percentage as f32).height(10));
 
-            // Apply filters first, then sort and take the top 5 largest matching files
+            
             let mut matching_files: Vec<FileInfo> = disk
                 .files
                 .iter()
@@ -252,11 +252,11 @@ impl Application for DiskVisualizer {
                 .cloned()
                 .collect();
 
-            // Sort matching files by size in descending order and take the top 5
+            
             matching_files.sort_by(|a, b| b.size_mb.partial_cmp(&a.size_mb).unwrap_or(std::cmp::Ordering::Equal));
             let top_files = matching_files.iter().take(5);
 
-            // Display the largest matching files with adjusted units
+            
             for file in top_files {
                 let (size, unit) = if file.size_mb >= 1000.0 {
                     (file.size_mb / 1024.0, "GB")
@@ -268,7 +268,7 @@ impl Application for DiskVisualizer {
         }
     }
 
-    // Display scan time or duration
+    
     if self.scanning {
         content = content.push(Text::new(format!(
             "Time Elapsed: {:.0} seconds",
@@ -278,10 +278,9 @@ impl Application for DiskVisualizer {
         content = content.push(Text::new(format!("Scan Duration: {:.2} seconds", duration)));
     }
 
-    // Show the total number of scans performed
     content = content.push(Text::new(format!("Scans performed: {}", self.scan_count.load(Ordering::SeqCst))));
 
-    // Create buttons row
+        
     content = content
         .push(Container::new(
             Button::new(Text::new("Scan Disk"))
@@ -294,7 +293,6 @@ impl Application for DiskVisualizer {
                 .width(Length::Fixed(85.0)),
         ));
 
-    // Create a row for the refresh button
     content = content.push(
         Container::new(
             Button::new(Text::new("Refresh Disk Info"))
@@ -303,28 +301,25 @@ impl Application for DiskVisualizer {
         )
     );
 
-    // Create a row for the export buttons with some spacing
     content = content.push(Row::new()
-        .spacing(10) // Adjust spacing between buttons
+        .spacing(10)
         .push(Button::new(Text::new("Export as JSON")).on_press(Message::ExportAsJson).width(Length::Fixed(120.0)))
         .push(Button::new(Text::new("Export as CSV")).on_press(Message::ExportAsCsv).width(Length::Fixed(110.0)))
     );
 
-    // Ensure there's space for scrolling
+    
     content = content.push(Space::with_height(Length::Fill));
 
-    // Wrap content in a scrollable container
     let scrollable_content = iced::widget::scrollable::Scrollable::new(content)
         .height(Length::Fill)
         .width(Length::Fill);
 
-    // Now create the layout for the "Done" button at the bottom of the screen
     let final_layout = Column::new()
         .spacing(10)
-        .push(scrollable_content) // The scrollable content is placed at the top
+        .push(scrollable_content) 
         .push(Button::new(Text::new("Done")).on_press(Message::Done).width(Length::Shrink)); // "Done" button at the bottom
 
-    // Return the layout with the scrollable content and the "Done" button at the bottom
+    
     Container::new(final_layout)
         .width(Length::Fill)
         .height(Length::Fill)
@@ -358,7 +353,7 @@ fn export_to_csv(disks: Vec<DiskInfo>) -> Result<(), String> {
                 &format!("{:.2}", disk.used_space),
                 &file.path,
                 &format!("{:.2}", if file.size_mb >= 1000.0 { file.size_mb / 1024.0 } else { file.size_mb }),
-                &(if file.size_mb >= 1000.0 { "GB" } else { "MB" }).to_string(), // Convert unit label to String
+                &(if file.size_mb >= 1000.0 { "GB" } else { "MB" }).to_string(), 
             ]).map_err(|e| e.to_string())?;
         }
     }
