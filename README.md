@@ -6,13 +6,13 @@ Installation and Run:
 4. Copy the code to src folder and paste in main.rs
 5. Go to Cargo.toml
 6. Install Dependencies (type below the [dependencies]):
-   - iced = { version = "0.10", features = ["tokio"] }
-   - sysinfo = "0.29"
-   - walkdir = "2.3.2"
-   - rayon = "1.7.0"
-   - serde = { version = "1.0", features = ["derive"] }
+   - iced = { version = "0.10", features = ["tokio"] } (for GUI)
+   - sysinfo = "0.29" (gathering Disk Usage information)
+   - walkdir = "2.3.2" (Walk through directories files)
+   - rayon = "1.7.0" (Parallel processing)
+   - serde = { version = "1.0", features = ["derive"] } (produce Json and Csv file format)
    - serde_json = "1.0"
-   - csv = "1.1"
+   - csv = "1.1" (export CSV file)
 7. Open terminal and type "cargo build"
 8. type "cargo run"
 
