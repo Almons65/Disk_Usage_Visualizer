@@ -6,3 +6,14 @@ Installation and Run:
 4. type "cargo run" in terminal
 
 Done!
+
+
+Screenshots of the program:
+
+![image](https://github.com/user-attachments/assets/ec9e9437-a441-4d65-87d2-152458116856)
+
+
+![image](https://github.com/user-attachments/assets/daa37eff-4516-4753-b8a2-7fea3c8959d0)
+
+
+![image](https://github.com/user-attachments/assets/ee84bc52-accd-47ec-8cc5-5d182cd55386)
