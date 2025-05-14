@@ -52,7 +52,7 @@ After the scan is complete, the time taken to perform the scan is displayed at t
 
 
 
-Screenshots of the program:
+Screenshots:
 
 ![image](https://github.com/user-attachments/assets/ec9e9437-a441-4d65-87d2-152458116856)
 
